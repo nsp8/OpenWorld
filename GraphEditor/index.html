@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Graph Editor</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <h1>Graph Editor</h1>
+    <canvas id="myCanvas"></canvas>
+    <div id="controls">
+        <!-- <button onclick="addRandomPoint()">Add Point</button>
+        <button onclick="addRandomSegment()">Add Segment</button>
+        <button onclick="removeRandomSegment()">Remove Segment</button>
+        <button onclick="removeRandomPoint()">Remove Point</button>
+        <button onclick="clearGraph()">Clear</button> -->
+    </div>
+    <script src="js/graphEditor.js"></script>
+    <script src="js/math/graph.js"></script>
+    <script src="js/math/utils.js"></script>
+    <script src="js/primitive/point.js"></script>
+    <script src="js/primitive/segment.js"></script>
+    <script>
+
+        myCanvas.width = 600;
+        myCanvas.height = 600;
+
+        function reDraw(ctx) {
+            ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            graph.draw(ctx);
+        }
+
+        const points = [
+            new Point(200, 200),
+            new Point(500, 200),
+            new Point(400, 400),
+            new Point(100, 300),
+        ];
+
+        const segments = [
+            new Segment(points[0], points[1]),
+            new Segment(points[0], points[2]),
+            new Segment(points[0], points[3]),
+            new Segment(points[1], points[2]),
+        ];
+        const ctx = myCanvas.getContext("2d");
+        const graph = new Graph(points, segments);
+        const graphEditor = new GraphEditor(myCanvas, graph);
+        animate();
+
+        function animate() {
+            // clear graph
+            ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            // display canvas
+            graphEditor.display();
+            // recursively call for browser: 60 times per second
+            requestAnimationFrame(animate);
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+body {
+    background: black;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#myCanvas {
+    background-color: whitesmoke;
+}
+
+button {
+    font-family: 'DM Sans', sans-serif;
+    background: linear-gradient(45deg, #6b8dfa, #c35aec);
+    color: white;
+    margin-right: 5px;
+    padding: 10px;
+    position: relative;
+    opacity: 0.9;
+    border-radius: 5px;
+    margin-top: 5px;
+    text-decoration: none;
+}
+
+button:hover {
+    cursor: pointer;
+    opacity: 1.0;
+}
+
+button:disabled, button:disabled:hover {
+    background: #454545;
+    cursor: default;
+}
