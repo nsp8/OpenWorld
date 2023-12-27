@@ -14,3 +14,15 @@ function getNearestPoint(loc, points, threshold = Number.MAX_SAFE_INTEGER) {
 function getDistance(point1, point2) {
     return Math.hypot(point1.x - point2.x, point1.y - point2.y);
 }
+
+function vectorAdd(point1, point2) {
+    return new Point(point1.x + point2.x, point1.y + point2.y);
+}
+
+function vectorSubtract(point1, point2) {
+    return new Point(point1.x - point2.x, point1.y - point2.y);
+}
+
+function vectorScale(point, scaler) {
+    return new Point(point.x * scaler, point.y * scaler);
+}
