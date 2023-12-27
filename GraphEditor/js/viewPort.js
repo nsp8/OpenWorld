@@ -6,7 +6,6 @@ class ViewPort {
 
         // centering the canvas viewport
         this.center = new Point(canvas.width / 2, canvas.height / 2);
-        // this.offset = new Point(0, 0);
         this.offset = vectorScale(this.center, -1)
         this.drag = {
             start: new Point(0, 0),
@@ -69,11 +68,10 @@ class ViewPort {
         const step = 0.1;
         this.zoom += zoomDirection * step;
         this.zoom = Math.max(1, Math.min(5, this.zoom));
-        // console.log(this.zoom);
     }
 
     #handleMouseDown(evt) {
-        // middle mouse button
+        // middle mouse button click starts the dragging motion
         if (evt.button == 1) {
             this.drag.start = this.getMouseOnScaling(evt);
             this.drag.active = true;
@@ -89,7 +87,7 @@ class ViewPort {
     }
 
     #handleMouseUp(evt) {
-        // reset
+        // terminated the dragging motion and reset the viewport when the mouse button is lifted
         if (this.drag.active) {
             this.offset = vectorAdd(this.offset, this.drag.offset);
             this.drag = {

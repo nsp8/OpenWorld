@@ -11,10 +11,6 @@
     <h1>Graph Editor</h1>
     <canvas id="myCanvas"></canvas>
     <div id="controls">
-        <!-- <button onclick="addRandomPoint()">Add Point</button>
-        <button onclick="addRandomSegment()">Add Segment</button>
-        <button onclick="removeRandomSegment()">Remove Segment</button>
-        <button onclick="removeRandomPoint()">Remove Point</button> -->
         <button onclick="clearGraph()">Clear</button>
         <button onclick="saveGraph()">Save</button>
     </div>
@@ -33,22 +29,7 @@
             ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
             graph.draw(ctx);
         }
-        /*
-        const points = [
-            new Point(200, 200),
-            new Point(500, 200),
-            new Point(400, 400),
-            new Point(100, 300),
-        ];
 
-        const segments = [
-            new Segment(points[0], points[1]),
-            new Segment(points[0], points[2]),
-            new Segment(points[0], points[3]),
-            new Segment(points[1], points[2]),
-        ];
-        const graph = new Graph(points, segments);
-        */
         const ctx = myCanvas.getContext("2d");
         const savedGraph = localStorage.getItem("graph");
         const graphInfo = savedGraph ? JSON.parse(savedGraph) : null;
