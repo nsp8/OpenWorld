@@ -11,13 +11,11 @@
     <h1>Graph Editor</h1>
     <canvas id="myCanvas"></canvas>
     <div id="controls">
-        <!-- <button onclick="addRandomPoint()">Add Point</button>
-        <button onclick="addRandomSegment()">Add Segment</button>
-        <button onclick="removeRandomSegment()">Remove Segment</button>
-        <button onclick="removeRandomPoint()">Remove Point</button>
-        <button onclick="clearGraph()">Clear</button> -->
+        <button onclick="clearGraph()">Clear</button>
+        <button onclick="saveGraph()">Save</button>
     </div>
     <script src="js/graphEditor.js"></script>
+    <script src="js/viewPort.js"></script>
     <script src="js/math/graph.js"></script>
     <script src="js/math/utils.js"></script>
     <script src="js/primitive/point.js"></script>
@@ -32,33 +30,34 @@
             graph.draw(ctx);
         }
 
-        const points = [
-            new Point(200, 200),
-            new Point(500, 200),
-            new Point(400, 400),
-            new Point(100, 300),
-        ];
-
-        const segments = [
-            new Segment(points[0], points[1]),
-            new Segment(points[0], points[2]),
-            new Segment(points[0], points[3]),
-            new Segment(points[1], points[2]),
-        ];
         const ctx = myCanvas.getContext("2d");
-        const graph = new Graph(points, segments);
-        const graphEditor = new GraphEditor(myCanvas, graph);
+        const savedGraph = localStorage.getItem("graph");
+        const graphInfo = savedGraph ? JSON.parse(savedGraph) : null;
+        const graph = graphInfo ? Graph.load(graphInfo) : new Graph();
+        const viewPort = new ViewPort(myCanvas);
+
+        // passing our ViewPort to the GraphEditor, instead of the canvas
+        const graphEditor = new GraphEditor(viewPort, graph);
         animate();
 
         function animate() {
-            // clear graph
-            ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            viewPort.resetViewPort();
+
             // display canvas
             graphEditor.display();
+
             // recursively call for browser: 60 times per second
             requestAnimationFrame(animate);
         }
 
+        function clearGraph() {
+            graphEditor.clearGraph();
+            // reDraw(ctx);
+        }
+
+        function saveGraph() {
+            localStorage.setItem("graph", JSON.stringify(graph));
+        }
     </script>
 </body>
 
