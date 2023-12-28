@@ -97,7 +97,7 @@ class GraphEditor {
         if (this.selected) {
             const intent = this.hovered ? this.hovered : this.mousePoint;
             // draw a dashed line segment from the selected point 
-            new Segment(this.selected, this.mousePoint).draw(ctx, { dash: [3, 3] });
+            new Segment(this.selected, intent).draw(ctx, { dash: [3, 3] });
             this.selected.draw(this.ctx, { outline: true });
         }
     }

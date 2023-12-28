@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Graph Editor</title>
+    <title>World Editor</title>
     <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
-    <h1>Graph Editor</h1>
+    <h1>World Editor</h1>
     <canvas id="myCanvas"></canvas>
     <div id="controls">
         <button onclick="clearGraph()">Clear</button>
@@ -16,10 +16,13 @@
     </div>
     <script src="js/graphEditor.js"></script>
     <script src="js/viewPort.js"></script>
+    <script src="js/world.js"></script>
     <script src="js/math/graph.js"></script>
     <script src="js/math/utils.js"></script>
     <script src="js/primitive/point.js"></script>
     <script src="js/primitive/segment.js"></script>
+    <script src="js/primitive/polygon.js"></script>
+    <script src="js/primitive/envelope.js"></script>
     <script>
 
         myCanvas.width = 600;
@@ -34,6 +37,7 @@
         const savedGraph = localStorage.getItem("graph");
         const graphInfo = savedGraph ? JSON.parse(savedGraph) : null;
         const graph = graphInfo ? Graph.load(graphInfo) : new Graph();
+        const world = new World(graph, { roundness: 20 });
         const viewPort = new ViewPort(myCanvas);
 
         // passing our ViewPort to the GraphEditor, instead of the canvas
@@ -41,12 +45,16 @@
         animate();
 
         function animate() {
-            viewPort.resetViewPort();
+            viewPort.reset();
+
+            world.generate();
+            world.draw(ctx);
 
             // display canvas
+            ctx.globalAlpha = 0.3;
             graphEditor.display();
 
-            // recursively call for browser: 60 times per second
+            // recursively call for browser (60 times per second)
             requestAnimationFrame(animate);
         }
 
