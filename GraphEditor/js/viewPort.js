@@ -24,7 +24,7 @@ class ViewPort {
         this.canvas.addEventListener("mouseup", this.#handleMouseUp.bind(this));
     }
 
-    resetViewPort() {
+    reset() {
         // restore since scale is called for each frame
         this.ctx.restore();
 
